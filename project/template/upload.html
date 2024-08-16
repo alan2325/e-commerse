@@ -5,10 +5,20 @@
 <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
+  margin-top: 200px;
+  margin-left: 500px;
+  margin-bottom: 200px;
+  max-width: 500px;
+  /* margin: auto; */
   text-align: center;
+  vertical-align: center;
   font-family: arial;
+  padding: 50px;
+  /* padding-bottom: 50px; */
+}
+
+h3{
+    margin-bottom: 30px;
 }
 
 .title {
@@ -42,9 +52,9 @@ button:hover, a:hover {
 </head>
 <body>
 
-<h2 style="text-align:center">User Profile Card</h2>
+<!-- <h2 style="text-align:center">User Profile Card</h2> -->
 
-<div class="card">
+<!-- <div class="card">
   <img src="/w3images/team2.jpg" alt="John" style="width:100%">
   <h1>John Doe</h1>
   <p class="title">CEO & Founder, Example</p>
@@ -54,12 +64,13 @@ button:hover, a:hover {
     <a href="#"><i class="fa fa-twitter"></i></a>  
     <a href="#"><i class="fa fa-linkedin"></i></a>  
     <a href="#"><i class="fa fa-facebook"></i></a> 
-  </div>
+  </div> -->
   
 </div>
-<div>
-    <form action="" method="post">
+<div class="card">
+    <form action="" method="post" >
         {% csrf_token %}
+    <h3>Enter new updations</h3>
         <label for="">Email</label>
     <input type="emailfield"  name="Email" value="" placeholder="Enter your email"><br><br>
         <label for="">Name</label>
@@ -73,5 +84,6 @@ button:hover, a:hover {
         <label for=""></label>
     <input type="submit" value="submit" ><br>
     </form>
+<di</div>
 </body>
 </html>

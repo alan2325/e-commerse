@@ -42,4 +42,25 @@ def profile(req):
     return render(req,'profile.html')
 
 def upload(req):
-    return render(req,'upload.html')
+
+    # user={}
+    # pos=0
+    # for i in register:
+    #     if i['id']==user:
+    #         std1=i
+    #         pos=register.index(i)
+
+    # if req.method=='POST':
+    #     Email=req.POST['Email']
+    #     name=req.POST['name']
+    #     phonenumber=req.POST['phonenumber']
+    #     password=req.POST['password']
+    #     location=req.POST['location']
+    #     register[pos]={'Email':Email,'name':name,'phonenumber':phonenumber,'password':password,'location':location}
+    #     return redirect(profile)
+
+    # else:
+    #    return render(req,'upload.html',{'data':std1})
+      return render(req,'upload.html')
+
+     
