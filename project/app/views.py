@@ -1,21 +1,48 @@
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib import messages
-
+from django.contrib.auth.models import User,auth
 # Create your views here.
 
+def get_usr(req):
+    data=Register.objects.get(Email=req.session['user'])
+    return data
+
+
+
+
+
 def login(req):
+    if 'user' in req.session:
+        return redirect(userhome)
+
     if req.method=='POST':
         email=req.POST['Email']
         password=req.POST['password']
         try:
             data=Register.objects.get(Email=email,password=password)
+            req.session['user']=data.Email
             return redirect(userhome)
         except:
+            shop=auth.authenticate(username=email,password=password)
+            if shop is not None:
+                auth.login(req,shop)
+                req.session['shop']=email
+
+                return redirect(adminhome)
+
 
             messages.warning(req, "INVALID INPUT !")
     return render(req,'login.html')
 
+
+def logout(req):
+    if 'user' in req.session:
+        # req.session.flush()
+        del req.session['user']
+    if 'shop' in req.session:
+        del req.session
+    return redirect(login)
 def register(req):
 
     if req.method=='POST':
@@ -33,34 +60,37 @@ def register(req):
     return render(req,'register.html')
 
 def userhome(req):
-    return render(req,'userhome.html')
+    if 'user' in req.session:
+        return render(req,'userhome.html')
+    else:
+        return redirect(login)
 
 def adminhome(req):
+    
     return render(req,'adminhome.html')
 
+###profile
 def profile(req):
-    return render(req,'profile.html')
-
+    if 'user' in req.session:
+        # data=Register.objects.get(Email=req.session['user'])
+        return render(req,'profile.html',{'data':get_usr(req)})
+    else:
+        return redirect(login)
+    
+###profile update
 def upload(req):
+    if 'user' in req.session:
+        data=Register.objects.get(Email=req.session['user'])
+        if req.method=='POST':
+            name=req.POST['name']
+            phonenumber=req.POST['phonenumber']
+            location=req.POST['location']
+            Register.objects.filter(Email=req.session['user']).update(name=name,phonenumber=phonenumber,location=location)
+            return redirect(profile)
+        return render(req,'upload.html',{'data':data})
 
-    # user={}
-    # pos=0
-    # for i in register:
-    #     if i['id']==user:
-    #         std1=i
-    #         pos=register.index(i)
-
-    # if req.method=='POST':
-    #     Email=req.POST['Email']
-    #     name=req.POST['name']
-    #     phonenumber=req.POST['phonenumber']
-    #     password=req.POST['password']
-    #     location=req.POST['location']
-    #     register[pos]={'Email':Email,'name':name,'phonenumber':phonenumber,'password':password,'location':location}
-    #     return redirect(profile)
-
-    # else:
-    #    return render(req,'upload.html',{'data':std1})
-      return render(req,'upload.html')
+    else:
+       return redirect(login)
+      
 
      

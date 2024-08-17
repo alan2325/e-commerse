@@ -72,8 +72,10 @@ body {
 <body style="background-color:white;">
 
 <div class="navbar">
-  <!-- <a href="#home">Home</a>
-  <a href="#news">News</a> -->
+  <!-- <a href="#home">Home</a> -->
+   {% if shop %}
+  <a href="#news">shop</a>
+  {% endif %}
   <div class="dropdown">
     <button class="dropbtn">menu 
       <i class="fa fa-caret-down"></i>
@@ -81,7 +83,7 @@ body {
     <div class="dropdown-content">
       <a href="#">view</a>
       <a href="#">add</a>
-      <a href="#">logout</a>
+      <a href="../logout">logout</a>
     </div>
   </div> 
   <a class="navbar-brand" href="#">

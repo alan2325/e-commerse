@@ -74,7 +74,16 @@ input[type=submit]:hover {
   float: left;
   width: 100%;
   margin: auto;
-  padding: 0 500px;
+  padding: 0 400px;
+  margin-top: 6px;
+}
+
+
+.col-bottom{
+  float: left;
+  width: 100%;
+  margin: auto;
+  padding: 0px;
   margin-top: 6px;
 }
 
@@ -83,6 +92,7 @@ input[type=submit]:hover {
   content: "";
   display: table;
   clear: both;
+  width: 100%;
 }
 
 /* vertical line */
@@ -112,6 +122,8 @@ input[type=submit]:hover {
 
 /* bottom container */
 .bottom-container {
+  margin-left: 35%;
+  margin-right: 35%;
   text-align: center;
   background-color: #666;
   border-radius: 0px 0px 4px 4px;
@@ -187,12 +199,12 @@ input[type=submit]:hover {
   </form>
 </div>
 
-<div class="bottom-container">
+<div class="bottom-container" >
   <div class="row">
-    <div class="col">
+    <div class="col-bottom">
       <a href="../register" style="color:white" class="btn">Sign up</a>
     </div>
-    <div class="col">
+    <div class="col-bottom">
       <a href="#" style="color:white" class="btn">Forgot password?</a>
     </div>
   </div>
