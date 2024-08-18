@@ -94,3 +94,17 @@ def upload(req):
       
 
      
+def viewuser(req):
+    return render(req,'viewuser.html')
+
+
+def addpro(req):
+    return render(req,'addpro.html')
+
+
+def viewpro(req):
+    return render(req,'viewpro.html')
+
+
+def bookinghistory(req):
+    return render(req,'bookinghistory.html')
