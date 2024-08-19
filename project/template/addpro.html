@@ -42,5 +42,50 @@
   <p>You can also include forms inside the navigation bar.</p>
 </div>
 
+
+
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="container">
+    <h1>Register</h1>
+    <p>Please fill in this form to create an account.</p>
+   
+    <!-- allert -->
+
+    <!-- {% if messages %}
+    {% for message in messages %}
+    <!-- <div class="alert alert-warning alert-dismissable">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      {{message}}
+    </div> 
+    {% endfor %}
+    {% endif %}  --> 
+
+  
+
+    
+    <label for="name"><b>Name</b></label>
+    <input type="text" placeholder="Enter name" name="name" id="name" required><br>
+
+    <label for="discription"><b>Discription</b></label>
+    <input type="text" placeholder="Enter discription" name="discription" id="discription" required><br>
+
+    <label for="price"><b>Phone price</b></label>
+    <input type="number" placeholder="Enter price" name="price" id="price" required><br>
+
+    <label for="category"><b>Category</b></label>
+    <input type="text" placeholder="Enter category" name="category" id="category" required><br>
+
+    <label for="quantity"><b>quantity</b></label>
+    <input type="number" placeholder="Enter quantity" name="quantity" id="quantity" required><br>
+
+    <label for="offerprice"><b>Offerprice</b></label>
+    <input type="number" placeholder="Enter offerprice" name="offerprice" id="offerprice" required><br>
+
+    <label for="image"><b>Image</b></label>
+    <input type="file" placeholder="Enter image" name="image" id="image" required><br>
+    
+    <button type="submit" class="registerbtn">ADD</button>
+  </div>
 </body>
 </html>

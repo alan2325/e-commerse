@@ -15,7 +15,8 @@ def get_usr(req):
 def login(req):
     if 'user' in req.session:
         return redirect(userhome)
-
+    if 'shop' in req.session:
+        return redirect(adminhome)
     if req.method=='POST':
         email=req.POST['Email']
         password=req.POST['password']
@@ -41,7 +42,7 @@ def logout(req):
         # req.session.flush()
         del req.session['user']
     if 'shop' in req.session:
-        del req.session
+        del req.session['shop']
     return redirect(login)
 def register(req):
 
@@ -99,11 +100,23 @@ def viewuser(req):
 
 
 def addpro(req):
+    if req.method=='POST':
+            name=req.POST['name']
+            discription =req.POST['discription']
+            price =req.POST['price']
+            category =req.POST['category']
+            quantity =req.POST['quantity']
+            offerprice = req.POST['offerprice']
+            image = req.FILES['image']
+            data=Product.objects.create(name=name,discription=discription,price=price,category=category,quantity=quantity,offerprice=offerprice,image=image)
+            data.save()
+            return redirect(viewpro)
     return render(req,'addpro.html')
 
 
 def viewpro(req):
-    return render(req,'viewpro.html')
+    data=Product.objects.all()
+    return render(req,'viewpro.html',{'data':data})
 
 
 def bookinghistory(req):
