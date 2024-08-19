@@ -60,11 +60,11 @@ profile
     </button>
     <ul class="dropdown-menu">
       <li><a class="dropdown-item" href= "../profile ">profile</a></li>
-      <li><a class="dropdown-item" href="../viewproduct">view product</a></li>
+      <li><a class="dropdown-item" href="#">view product</a></li>
       <li><a class="dropdown-item" href="#">buy</a></li>
       <li><a class="dropdown-item" href="../logout">logout</a></li>
       <li><a class="dropdown-item" href="../cart">My cart</a></li>
-
+      
     </ul>
   </div>
 
@@ -116,6 +116,19 @@ profile
 <div>
    <img src="static/images.jpg" width="100%" height="100%">
 </div>
-
+{% for i in data %}
+    <div class="card mb-4">
+      <div class="card-body text-center">
+        <img src="{{i.image.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;height: 150px;">
+        <h5 class="my-3">Product name : {{i.name}}</h5>
+        <p class="text-muted mb-1">price : {{i.price}}</p>
+        <p class="text-muted mb-4">Stock : {{i.quantity}}</p>
+        <div class="d-flex justify-content-center mb-2">
+          <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary" data-mdb-button-initialized="true">Details</button>
+          <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-outline-primary ms-1" data-mdb-button-initialized="true">Edit</button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
 </body>
 </html>

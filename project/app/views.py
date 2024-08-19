@@ -8,7 +8,8 @@ def get_usr(req):
     data=Register.objects.get(Email=req.session['user'])
     return data
 
-
+def get_pro(req):
+    data=Product.objects.get(id=req.session['shop'])
 
 
 
@@ -66,9 +67,6 @@ def userhome(req):
     else:
         return redirect(login)
 
-def adminhome(req):
-    
-    return render(req,'adminhome.html')
 
 ###profile
 def profile(req):
@@ -92,9 +90,31 @@ def upload(req):
 
     else:
        return redirect(login)
-      
+    
+def viewproduct(req):
+    data=Product.objects.all()
+    return render(req,'viewproduct.html',{'data':data})
 
-     
+def cart(req):
+    if 'user' in req.session:
+        data=cart.objects.get(Email=req.session['user'])
+        return render(req,'cart.html',{'data':data})
+    else:
+        return redirect(login)
+
+
+
+
+
+#### shop
+
+
+
+def adminhome(req):
+    if 'shop' in req.session:
+        return render(req,'adminhome.html')
+    else:
+        return redirect(login)     
 def viewuser(req):
     return render(req,'viewuser.html')
 
@@ -121,3 +141,18 @@ def viewpro(req):
 
 def bookinghistory(req):
     return render(req,'bookinghistory.html')
+
+
+      
+def prodetails(req):
+    # if 'shop' in req.session:
+        # data=Product.objects.all()
+        return render(req,'prodetails.html',{'data':get_pro(req)})
+    #     data=product.objects.get(id:id)
+    #     return render(req,'.html',{'data':data})
+    # else:
+    #     return redirect(login)
+
+
+def proupdate(req):
+    return render(req,'proupdate.html')

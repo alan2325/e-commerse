@@ -63,31 +63,19 @@
   <p>You can also include forms inside the navigation bar.</p>
 </div>
 
-<!-- card -->
-  <!-- <card> -->
-    {% for i in data %}
-    <div class="card mb-4">
-      <div class="card-body text-center">
-        <img src="{{i.image.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;height: 150px;">
-        <h5 class="my-3">Product name : {{i.name}}</h5>
-        <p class="text-muted mb-1">price : {{i.price}}</p>
-        <p class="text-muted mb-4">Stock : {{i.quantity}}</p>
-        <div class="d-flex justify-content-center mb-2">
-          <!-- <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary" data-mdb-button-initialized="true">Details</button>
-          <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-outline-primary ms-1" data-mdb-button-initialized="true">Edit</button> -->
-          
-            
-              <a class="pro" href="../prodetails">Details</a>
-            
-              <a class="pro" href="../proupdate">Edit</a>
-           
-          
-          </div>
-      </div>
-    </div>
-    {% endfor %}
-  <!-- </card> -->
-<!-- card -->
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="">NAME</label>
+<input type="text"  name="name" value="{{data.name}}" placeholder="Enter your name"><br><br>
+    <label for="">price</label>
+<input type="number" name="price" value="{{data.price}}" placeholder="Enter your price"><br><br>
+    <label for="">offerprice</label>
+<input type="number" name="offerprice" value="{{data.offerprice}}" placeholder="Enter your offerprice"><br><br>
+<label for="">quantity</label>
+<input type="number" name="quantity" value="{{data.quantity}}" placeholder="Enter your quantity"><br><br>
+    <label for=""></label>
+<input type="submit" value="submit" ><br>
+</form>
 
 </body>
 </html>
