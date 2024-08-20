@@ -8,8 +8,6 @@ def get_usr(req):
     data=Register.objects.get(Email=req.session['user'])
     return data
 
-def get_pro(req):
-    data=Product.objects.get(id=req.session['shop'])
 
 
 
@@ -95,12 +93,26 @@ def viewproduct(req):
     data=Product.objects.all()
     return render(req,'viewproduct.html',{'data':data})
 
-def cart(req):
+def user_cart(req,id):
     if 'user' in req.session:
-        data=cart.objects.get(Email=req.session['user'])
-        return render(req,'cart.html',{'data':data})
+        product=Product.objects.get(pk=id)
+        user=get_usr(req)
+        qty=1
+        try:
+            dtls=cart.objects.get(product=product,user=user)
+            dtls.quantity+=1
+            dtls.save()
+        except:
+            data=cart.objects.create(product=product,user=user,quantity=qty)
+            data.save()
+        return redirect(user_view_cart)
     else:
         return redirect(login)
+    
+def user_view_cart(req):
+    return render(req,'cart.html')
+def singlepro(req):
+    return render(req,'singlepro.html')
 
 
 
@@ -144,15 +156,24 @@ def bookinghistory(req):
 
 
       
-def prodetails(req):
-    # if 'shop' in req.session:
-        # data=Product.objects.all()
-        return render(req,'prodetails.html',{'data':get_pro(req)})
-    #     data=product.objects.get(id:id)
-    #     return render(req,'.html',{'data':data})
-    # else:
-    #     return redirect(login)
+def prodetails(req,id):
+    
+        data=Product.objects.get(pk=id)
+        return render(req,'prodetails.html',{'data':data})
+    
 
+def proupdate(req,id):
+    data=Product.objects.get(pk=id)
+    if req.method=='POST':
+        name=req.POST['name']
+        price=req.POST['price']
+        offerprice=req.POST['offerprice']
+        quantity=req.POST['quantity']
+        Product.objects.filter(pk=id).update(name=name,price=price,offerprice=offerprice,quantity=quantity)
+        return redirect(viewpro)
+    return render(req,'proupdate.html',{'data':data})
 
-def proupdate(req):
-    return render(req,'proupdate.html')
+def delete(req,id):
+    data=Product.objects.get(pk=id)
+    data.delete()
+    return redirect(viewpro)

@@ -52,8 +52,9 @@ profile
       width: 300px;
       margin-left: 100PX;
       /* margin: auto; */
-        padding: 0px;
+      padding: 0px;
       margin-top: 6px;
+      
     } 
 
     .pro{
@@ -61,15 +62,23 @@ profile
   color: rgb(236, 228, 228);
   border: 2px solid rgb(81, 10, 222);
   margin: 20PX;
-  padding: 10px 20px;
+  padding: 0px 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
 }
 
+/* .proimg{
+  max-width: 300px;
+  min-width: 300px;
+  min-height: 300px;
+  max-height: 300px;
+} */
+
+
     </style>
 </head>
-<body>k
+<body>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="dropdown">
@@ -136,13 +145,17 @@ profile
 {% for i in data %}
     <div class="card mb-4">
       <div class="card-body text-center">
-        <img src="{{i.image.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;height: 150px;">
+        <img class="proimg" src="{{i.image.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;height: 150px;">
         <h5 class="my-3">Product name : {{i.name}}</h5>
         <p class="text-muted mb-1">price : {{i.price}}</p>
         <p class="text-muted mb-4">Stock : {{i.quantity}}</p>
         <div class="d-flex justify-content-center mb-2">
-          <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary" data-mdb-button-initialized="true">Details</button>
-          <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-outline-primary ms-1" data-mdb-button-initialized="true">Edit</button>
+          <!-- <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary" data-mdb-button-initialized="true">Details</button>
+          <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-outline-primary ms-1" data-mdb-button-initialized="true">Edit</button> -->
+          <a class="pro" href="../singlepro">View Details</a>
+            
+          <a class="pro" href="../cart/{{i.pk}}">Add to cart</a>
+           
         </div>
       </div>
     </div>
