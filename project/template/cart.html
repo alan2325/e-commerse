@@ -50,7 +50,7 @@ profile
 
     </style>
 </head>
-<body>k
+<body>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="dropdown">
@@ -120,12 +120,19 @@ profile
     <div class="card mb-4">
       <div class="card-body text-center">
         <img src="{{i.image.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;height: 150px;">
-        <h5 class="my-3">Product name : {{i.name}}</h5>
-        <p class="text-muted mb-1">price : {{i.price}}</p>
-        <p class="text-muted mb-4">Stock : {{i.quantity}}</p>
+        <h5 class="my-3">Product name : {{i.product.name}}</h5>
+        <p class="text-muted mb-1">price : {{i.product.price}}</p>
+        <a href="../qty_incri/{{i.pk}}" class="btn">+</a><p class="text-muted mb-4">{{i.quantity}}</p>  
+        <a href="../qty_decri/{{i.pk}}" class="btn">-</a>
+        
+      
         <div class="d-flex justify-content-center mb-2">
-          <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary" data-mdb-button-initialized="true">Details</button>
-          <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-outline-primary ms-1" data-mdb-button-initialized="true">Edit</button>
+
+          <!-- <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary" data-mdb-button-initialized="true">Details</button>
+          <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-outline-primary ms-1" data-mdb-button-initialized="true">Edit</button> -->
+          <a href="../buy">Buy now</a>
+          <a href="../deletes/{{i.pk}}">Delete</a>
+
         </div>
       </div>
     </div>
