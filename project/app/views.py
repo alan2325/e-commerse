@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
+import datetime
 # Create your views here.
 
 def get_usr(req):
@@ -121,18 +122,21 @@ def deletes(req,id):
 def singlepro(req):
     return render(req,'singlepro.html')
 
-def buys(req):
-    cart_items = cart.objects.filter(user=req.user)
-    total_price = sum(item.total_price() for item in cart_items)
+def buys(req,id):
+    if 'user' in req.session:
+        cart_product=cart.objects.get(pk=id)
+        user=get_usr(req)
+        quantity=cart_product.quantity
+        date=datetime.datetime.now().strftime("%x")
+        order=buy.objects.create(product=cart_product.product,user=user,quantity=quantity,date_of_buying=date)
+        order.save()
+        return redirect(user_view_cart)
 
-    if req.method == 'POST':
-        # Process the order here
-        # For example, save the order to the database, charge the user, etc.
-        # After processing, you might want to clear the cart:
-        cart_items.delete()
-        return redirect('order_success')  # Redirect to an order success page
 
-    return render(req, 'buy.html', {'cart_items': cart_items, 'total_price': total_price})
+
+  
+
+    # return render(req, 'buy.html', {'cart_items': cart_items, 'total_price': total_price})
 
 def qty_incri(req,id):
     data=cart.objects.get(pk=id)
@@ -147,6 +151,10 @@ def qty_decri(req,id):
         data.quantity-=1
         data.save()
     return redirect(user_view_cart)
+
+def order_details(req):
+    data=buy.objects.filter(user=get_usr(req))
+    return render(req,'orderdetails.html',{'data':data})
 
 
 #### shop
@@ -183,7 +191,8 @@ def viewpro(req):
 
 
 def bookinghistory(req):
-    return render(req,'bookinghistory.html')
+    data=buy.objects.all()
+    return render(req,'booking_history.html',{'data':data})
 
 
       

@@ -17,11 +17,12 @@ path('deletes/<int:id>',views.deletes),
 path('user_view_cart',views.user_view_cart),
 path('qty_incri/<int:id>',views.qty_incri),
 path('qty_decri/<int:id>',views.qty_decri),
+path('order_details',views.order_details),
 path('proupdate/<int:id>',views.proupdate),
 path('prodetails/<int:id>',views.prodetails),
 path('viewproduct',views.viewproduct),
 path('singlepro',views.singlepro),
 path('delete/<int:id>',views.delete),
-path('buy',views.buys),
+path('buys/<int:id>',views.buys),
 
 ]
