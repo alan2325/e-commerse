@@ -20,8 +20,9 @@ path('qty_decri/<int:id>',views.qty_decri),
 path('order_details',views.order_details),
 path('proupdate/<int:id>',views.proupdate),
 path('prodetails/<int:id>',views.prodetails),
+path('usr_pro_display/<int:id>',views.usr_pro_display),
 path('viewproduct',views.viewproduct),
 path('delete/<int:id>',views.delete),
 path('buys/<int:id>',views.buys),
-
+path('usr_pro_display',views.usr_pro_display),
 ]

@@ -91,9 +91,11 @@ def upload(req):
        return redirect(login)
     
 def viewproduct(req):
-    data=Product.objects.all()
-    return render(req,'user/viewproduct.html',{'data':data})
-
+    if 'user' in req.session:
+        data=Product.objects.all()
+        return render(req,'user/viewproduct.html',{'data':data})
+    else:
+        return redirect(login)
 def user_cart(req,id):
     if 'user' in req.session:
         product=Product.objects.get(pk=id)
@@ -114,6 +116,8 @@ def user_view_cart(req):
     if 'user' in req.session:
         data=cart.objects.filter(user=get_usr(req))
         return render(req,'user/cart.html',{'data':data})
+    else:
+        return redirect(login)
 def deletes(req,id):
     data=cart.objects.get(pk=id)
     data.delete()
@@ -130,7 +134,8 @@ def buys(req,id):
         order=buy.objects.create(product=cart_product.product,user=user,quantity=quantity,date_of_buying=date,price=price)
         order.save()
         return redirect(user_view_cart)
-
+    else:
+        return redirect(login)
 
 
   
@@ -152,14 +157,25 @@ def qty_decri(req,id):
     return redirect(user_view_cart)
 
 def order_details(req):
-    data=buy.objects.filter(user=get_usr(req))
-    return render(req,'user/orderdetails.html',{'data':data})
+    if 'user' in req.session:
+        data=buy.objects.filter(user=get_usr(req))
+        return render(req,'user/orderdetails.html',{'data':data})
+    else:
+        return redirect(login)
 def user_home(req):
     if 'user' in req.session:
         return render(req,'user/user_home.html')
     else:
         return redirect(login)
 
+
+      
+def usr_pro_display(req,id):
+    if 'user' in req.session:
+        data=Product.objects.get(pk=id)
+        return render(req,'user/usr_pro_display.html',{'data':data})
+    else:
+        return redirect(login)
    
 
 #### shop
@@ -172,54 +188,67 @@ def adminhome(req):
     else:
         return redirect(login)     
 def viewuser(req):
-    data=Register.objects.all
-    return render(req,'shop/viewuser.html',{'data':data})
-
+    if 'shop' in req.session:
+        data=Register.objects.all
+        return render(req,'shop/viewuser.html',{'data':data})
+    else:
+        return redirect(login) 
 
 def addpro(req):
-    if req.method=='POST':
-            name=req.POST['name']
-            discription =req.POST['discription']
-            price =req.POST['price']
-            category =req.POST['category']
-            quantity =req.POST['quantity']
-            offerprice = req.POST['offerprice']
-            image = req.FILES['image']
-            data=Product.objects.create(name=name,discription=discription,price=price,category=category,quantity=quantity,offerprice=offerprice,image=image)
-            data.save()
-            return redirect(viewpro)
-    return render(req,'shop/addpro.html')
-
+    if 'shop' in req.session:
+        if req.method=='POST':
+                name=req.POST['name']
+                discription =req.POST['discription']
+                price =req.POST['price']
+                category =req.POST['category']
+                quantity =req.POST['quantity']
+                offerprice = req.POST['offerprice']
+                image = req.FILES['image']
+                data=Product.objects.create(name=name,discription=discription,price=price,category=category,quantity=quantity,offerprice=offerprice,image=image)
+                data.save()
+                return redirect(viewpro)
+        return render(req,'shop/addpro.html')
+    else:
+        return redirect(login) 
 
 def viewpro(req):
-    data=Product.objects.all()
-    return render(req,'shop/viewpro.html',{'data':data})
-
+    if 'shop' in req.session:
+        data=Product.objects.all()
+        return render(req,'shop/viewpro.html',{'data':data})
+    else:
+        return redirect(login) 
 
 def bookinghistory(req):
-    data=buy.objects.all()
-    return render(req,'shop/booking_history.html',{'data':data})
-
+    if 'shop' in req.session:
+        data=buy.objects.all()
+        return render(req,'shop/booking_history.html',{'data':data})
+    else:
+        return redirect(login) 
 
       
 def prodetails(req,id):
-    
+    if 'shop' in req.session:
         data=Product.objects.get(pk=id)
         return render(req,'shop/prodetails.html',{'data':data})
-    
+    else:
+        return redirect(login) 
 
 def proupdate(req,id):
-    data=Product.objects.get(pk=id)
-    if req.method=='POST':
-        name=req.POST['name']
-        price=req.POST['price']
-        offerprice=req.POST['offerprice']
-        quantity=req.POST['quantity']
-        Product.objects.filter(pk=id).update(name=name,price=price,offerprice=offerprice,quantity=quantity)
-        return redirect(viewpro)
-    return render(req,'shop/proupdate.html',{'data':data})
+    if 'shop' in req.session:
+        data=Product.objects.get(pk=id)
+        if req.method=='POST':
+            name=req.POST['name']
+            price=req.POST['price']
+            offerprice=req.POST['offerprice']
+            quantity=req.POST['quantity']
+            Product.objects.filter(pk=id).update(name=name,price=price,offerprice=offerprice,quantity=quantity)
+            return redirect(viewpro)
+        return render(req,'shop/proupdate.html',{'data':data})
+    else:
+        return redirect(login) 
 
 def delete(req,id):
-    data=Product.objects.get(pk=id)
-    data.delete()
-    return redirect(viewpro)
+        data=Product.objects.get(pk=id)
+        data.delete()
+        return redirect(viewpro)
+    
