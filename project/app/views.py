@@ -14,7 +14,7 @@ def get_usr(req):
 
 def login(req):
     if 'user' in req.session:
-        return redirect(userhome)
+        return redirect(user_home)
     if 'shop' in req.session:
         return redirect(adminhome)
     if req.method=='POST':
@@ -126,7 +126,8 @@ def buys(req,id):
         user=get_usr(req)
         quantity=cart_product.quantity
         date=datetime.datetime.now().strftime("%x")
-        order=buy.objects.create(product=cart_product.product,user=user,quantity=quantity,date_of_buying=date)
+        price=cart_product.product.price*quantity
+        order=buy.objects.create(product=cart_product.product,user=user,quantity=quantity,date_of_buying=date,price=price)
         order.save()
         return redirect(user_view_cart)
 
@@ -171,7 +172,8 @@ def adminhome(req):
     else:
         return redirect(login)     
 def viewuser(req):
-    return render(req,'shop/viewuser.html')
+    data=Register.objects.all
+    return render(req,'shop/viewuser.html',{'data':data})
 
 
 def addpro(req):
