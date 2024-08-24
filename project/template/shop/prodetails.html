@@ -225,13 +225,14 @@
   }
 }
   </style>
+  {% load static %}
 </head>
 <body>
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-        <img src="static/360_F_450084582_MJt3cB5MG2NcwgoaN86eWH5573szBMKH.jpg" alt="Logo" style="width:40px;" class="rounded-pill">
+        <img src="{% static '360_F_450084582_MJt3cB5MG2NcwgoaN86eWH5573szBMKH.jpg' %}" alt="Logo" style="width:40px;" class="rounded-pill">
       </a>
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
@@ -337,7 +338,7 @@
     <div class="product-price">
       
       <!-- <span>Offer price : {{data.offerprice}}</span> -->
-      <a href="../proupdate/{{i.pk}}" class="cart-btn">Edit</a>
+      <a href="../proupdate/{{data.pk}}" class="cart-btn">Edit</a>
       <!-- <a href="../cart/{{i.pk}}" class="cart-btn">Add to cart</a> -->
     </div>
   </div>

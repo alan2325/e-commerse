@@ -17,6 +17,8 @@ def login(req):
         return redirect(user_home)
     if 'shop' in req.session:
         return redirect(adminhome)
+    if 'delivery' in req.session:
+        return redirect(delivery_home)
     if req.method=='POST':
         email=req.POST['Email']
         password=req.POST['password']
@@ -43,6 +45,8 @@ def logout(req):
         del req.session['user']
     if 'shop' in req.session:
         del req.session['shop']
+    if 'delivery' in req.session:
+        del req.session['delivery']
     return redirect(login)
 def register(req):
 
@@ -252,3 +256,14 @@ def delete(req,id):
         data.delete()
         return redirect(viewpro)
     
+
+
+
+
+# ###delivery
+def delivery_home(req):
+    return render(req,'delivery/delivery_home.html')
+def delivery_reg(req):
+    return render(req,'delivery/delivery_reg.html')
+def new_delivery(req):
+    return render(req,'delivery/new_delivery.html')
