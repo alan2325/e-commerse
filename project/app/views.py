@@ -17,8 +17,8 @@ def login(req):
         return redirect(user_home)
     if 'shop' in req.session:
         return redirect(adminhome)
-    if 'delivery' in req.session:
-        return redirect(new_delivery)
+    # if 'delivery' in req.session:
+    #     return redirect(delivery)
     if req.method=='POST':
         email=req.POST['Email']
         password=req.POST['password']
@@ -42,12 +42,11 @@ def login(req):
 
 def logout(req):
     if 'user' in req.session:
-        # req.session.flush()
         del req.session['user']
     if 'shop' in req.session:
         del req.session['shop']
-    if 'delivery' in req.session:
-        del req.session['delivery']
+    # if 'delivery' in req.session:
+    #     del req.session['delivery']
     return redirect(login)
 def register(req):
 
@@ -65,11 +64,6 @@ def register(req):
             messages.warning(req, "Email Already Exits , Try Another Email.")
     return render(req,'register.html')
 
-# def userhome(req):
-#     if 'user' in req.session:
-#         return render(req,'user/userhome.html')
-#     else:
-#         return redirect(login)
 
 
 ###profile
@@ -101,6 +95,8 @@ def viewproduct(req):
         return render(req,'user/viewproduct.html',{'data':data})
     else:
         return redirect(login)
+    
+### add product to cart
 def user_cart(req,id):
     if 'user' in req.session:
         product=Product.objects.get(pk=id)
@@ -116,7 +112,8 @@ def user_cart(req,id):
         return redirect(user_view_cart)
     else:
         return redirect(login)
-    
+
+### view cart    
 def user_view_cart(req):
     if 'user' in req.session:
         data=cart.objects.filter(user=get_usr(req))
@@ -283,5 +280,4 @@ def delivery_home(req):
       
 def delivery(req):
     data=buy.objects.filter(user=get_usr(req))
-    # data1=Product.objects.filter(user=get_usr(req))
     return render(req,'delivery/new_delivery.html',{'data':data })
