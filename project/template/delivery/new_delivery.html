@@ -86,6 +86,7 @@
             background-color: #f8f9fa;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            min-height: 500px;
         }
 
         .card .left, .card .right {
@@ -105,8 +106,6 @@
     <!-- Navbar -->
     <div class="navbar">
         <a href="../userhome">Home</a>
-        <a href="../viewproduct">Products</a>
-        <a href="../cart">Cart</a>
         <a href="../order_details" class="active">Order Details</a>
         <div class="navbar-right">
             <a href="../profile">My Account</a>
@@ -119,10 +118,10 @@
     <div class="card">
         <div class="left">
             <h2>product</h2>
-            <img src="{{i.product.image.url}}" alt="Product 1" width="50%" height="50%">
+            <img src="{{i.product.image.url}}" alt="Product 1" width="80%" height="50%">
             <p><strong>Product name :</strong> {{i.product.name}}</p>
             <p><strong>Order Date:</strong> {{i.date_of_buying}}</p>
-            <p><strong>Quantity:</strong> {{i.puy.quantity}}</p>
+            <p><strong>Quantity:</strong> {{i.buy.quantity}}</p>
             <p><strong>Payment Method: </strong>Cash on delivery</p>
             <p><strong>Total price : </strong>{{i.buy.price}}</p>
         </div>
@@ -136,42 +135,6 @@
         </div>
     </div>
 
-
-    <!-- <div class="container">
-        <div class="card">
-            <h2>Delivery</h2>
-            <p><strong>Product name :</strong> {{i.product.name}}</p>
-            <p><strong>Order Date:</strong> {{i.date_of_buying}}</p>
-            <p><strong>Shipping Address:</strong> {{i.user.location}}</p>
-            <p><strong>Payment Method:</strong>{{i.buy.user_id}}</p>
-        </div>
-        <div class="card">
-            <h2>product</h2>
-            <img src="{{i.product.image.url}}" alt="Product 1" width="50%" height="50%">
-            <p><strong>Product name :</strong> {{i.product.name}}</p>
-            <p><strong>Order Date:</strong> {{i.date_of_buying}}</p>
-            <p><strong>Shipping Address:</strong> {{i.user.location}}</p>
-            <p><strong>Payment Method:</strong>{{i.buy.user_id}}</p>
-        </div>
-    </div> -->
-    
-    <!-- <div class="order-container">
-        <h2>Delivery</h2>
-        <div class="order-details">
-            <p><strong>Product name :</strong> {{i.product.name}}</p>
-            <p><strong>Order Date:</strong> {{i.date_of_buying}}</p>
-            <p><strong>Shipping Address:</strong> {{i.user.location}}</p>
-            <p><strong>Payment Method:</strong>{{i.buy.user_id}}</p>
-        </div> -->
-
-        <!-- <div class="order-summary">
-            <p>Product 1 <span>$20.00</span></p>
-            <p>Product 2 <span>$15.00</span></p>
-            <p>Shipping <span>$5.00</span></p>
-            <hr>
-            <p>Total <span>$40.00</span></p>
-        </div> -->
-    <!-- </div> -->
     {% endfor %}
 
    

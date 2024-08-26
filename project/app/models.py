@@ -45,8 +45,9 @@ class buy(models.Model):
     quantity = models.IntegerField()
     price = models.IntegerField()
 
+
     def __str__(self):
-        return self.name
+        return self.user.name
     
 
 
