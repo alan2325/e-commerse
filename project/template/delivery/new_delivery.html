@@ -121,17 +121,17 @@
             <img src="{{i.product.image.url}}" alt="Product 1" width="80%" height="50%">
             <p><strong>Product name :</strong> {{i.product.name}}</p>
             <p><strong>Order Date:</strong> {{i.date_of_buying}}</p>
-            <p><strong>Quantity:</strong> {{i.buy.quantity}}</p>
+            <p><strong>Quantity:</strong> {{i.product.quantity}}</p>
             <p><strong>Payment Method: </strong>Cash on delivery</p>
-            <p><strong>Total price : </strong>{{i.buy.price}}</p>
+            <p><strong>Total price : </strong>{{i.price}}</p>
         </div>
         <div class="divider"></div>
         <div class="right">
             <h2>Delivery</h2>
-            <p><strong>Buyer name :</strong> {{i.Register.name}}</p>
-            <p><strong>Buyer email:</strong> {{i.date_of_buying}}</p>
+            <p><strong>Buyer name :</strong> {{i.user.name}}</p>
+            <p><strong>Buyer email:</strong> {{i.user.Email}}</p>
             <p><strong>Shipping Address:</strong> {{i.user.location}}</p>
-            <p><strong>Payment Method:</strong>{{i.buy.user_id}}</p>
+            <p><strong>Phonr number :</strong>{{i.user.phonenumber}}</p>
         </div>
     </div>
 
