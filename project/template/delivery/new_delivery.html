@@ -14,7 +14,52 @@
         .dropdown-menu{
             margin-left: -100px;
         }
-    
+        .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+  display: flex;
+}
+/* Columns */
+.left-column {
+  width: 65%;
+  position: relative;
+}
+ 
+.right-column {
+  width: 35%;
+  margin-top: 60px;
+}
+/* Left Column */
+.left-column img {
+  /* width: 100%; */
+  padding-top: 20px;
+  margin-left: -50px;
+  padding-bottom: 50px;
+ position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  max-width: 700px;
+  max-height: 700px;
+  min-width: 700px;
+  min-height: 700px;
+  transition: all 0.3s ease;
+}
+ 
+.left-column img.active {
+  opacity: 1;
+}
+
+.card{
+      float: left;
+      width: 300px;
+      margin-left: 100PX;
+      /* margin: auto; */
+      padding: 0px;
+      margin-top: 6px;
+      
+    } 
     </style>
 </head>
 <body>
@@ -55,6 +100,52 @@
         </div>
     </div>
 </nav>
+
+    {% for i in data %}
+    <div class="card mb-4">
+        <!-- porduct pisplay -->
+        <div class="left-column">
+            <div class="card-body text-center">
+                <img src="{{i.product.image.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;height: 150px;">
+                <h5 class="my-3">Product : {{i.buy.user_id}}</h5>
+                <p class="text-muted mb-1">price : {{i.buy.}}</p>
+                <p class="text-muted mb-4">Quantity : {{i.quantity}}</p>
+                <p class="text-muted mb-4">Total price :{{i.price}}</p>
+                    <div class="d-flex justify-content-center mb-2">
+           
+               
+                    <a class="pro" href="../prodetails/{{i.pk}}">Payment Received</a>
+                
+                     <!--<a class="pro" href="../proupdate/{{i.pk}}">Edit</a>
+                -->
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- user profile -->
+        <div class="right-column">
+            <div class="card-body text-center">
+                <img src="{{i.product.image.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;height: 150px;">
+                <h5 class="my-3">Product : {{i.product.name}}</h5>
+                <p class="text-muted mb-1">price : {{i.price}}</p>
+                <p class="text-muted mb-4">Quantity : {{i.quantity}}</p>
+                <p class="text-muted mb-4">Total price :{{i.price}}</p>
+                    <div class="d-flex justify-content-center mb-2">
+           
+               
+                    <a class="pro" href="../paid/{{i.pk}}">Payment Received</a>
+                
+                     <!--<a class="pro" href="../proupdate/{{i.pk}}">Edit</a>
+                -->
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 
 
 

@@ -18,7 +18,7 @@ def login(req):
     if 'shop' in req.session:
         return redirect(adminhome)
     if 'delivery' in req.session:
-        return redirect(delivery_home)
+        return redirect(new_delivery)
     if req.method=='POST':
         email=req.POST['Email']
         password=req.POST['password']
@@ -33,6 +33,7 @@ def login(req):
                 req.session['shop']=email
 
                 return redirect(adminhome)
+        
 
 
             messages.warning(req, "INVALID INPUT !")
@@ -263,7 +264,51 @@ def delete(req,id):
 # ###delivery
 def delivery_home(req):
     return render(req,'delivery/delivery_home.html')
+
 def delivery_reg(req):
-    return render(req,'delivery/delivery_reg.html')
-def new_delivery(req):
-    return render(req,'delivery/new_delivery.html')
+      if req.method=='POST':
+        name1=req.POST['name']
+        email2=req.POST['email']
+        phonenumber3=req.POST['phonenumber']
+        delroot=req.POST['root']
+        password5=req.POST['password']
+        try:
+            data=Delreg.objects.create(name=name1,Email=email2,phonenumber=phonenumber3,delroot=delroot,password=password5)
+            data.save()
+            return redirect(login)
+        except:
+            messages.warning(req, "Email Already Exits , Try Another Email.")
+    
+        return render(req,'delivery/delivery_reg.html')
+      
+def new_delivery(req,id):
+    # data=buy.objects.all()
+    data=buy.objects.get(pk=id) 
+    # data2=buy.objects.filter(user=get_usr(req))
+    return render(req,'delivery/new_delivery.html',{'data':data})
+    
+       
+# from django.shortcuts import render, get_object_or_404
+
+# def new_delivery(req):
+#     # Retrieve the user object from session
+#     user = get_usr(req)
+    
+#     # Get the user's cart items
+#     cart_items = cart.objects.filter(user=user)
+    
+#     # Get user-specific data from 'buy' model
+#     # Assuming 'buy' has a ForeignKey to 'Register' called 'user'
+#     user_data = buy.objects.filter(user=user)  # Use filter() to get queryset for user's buy data
+
+#     return render(req, 'delivery/new_delivery.html', {'cart_items': cart_items, 'user_data': user_data})
+
+# def get_usr(req):
+#     # Retrieve the user object from the session email
+#     email = req.session.get('user')
+#     if not email:
+#         # Handle case where the session does not contain the user email
+#         # For example, redirect to login or return an error response
+#         return None
+#     user = get_object_or_404(Register, Email=email)
+#     return user

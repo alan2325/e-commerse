@@ -47,4 +47,17 @@ class buy(models.Model):
 
     def __str__(self):
         return self.name
+    
 
+
+
+class Delreg(models.Model):
+    Email = models.EmailField(unique=True)
+    name = models.TextField()
+    phonenumber = models.IntegerField()
+    password = models.IntegerField()
+    delroot = models.TextField()
+
+    def __str__(self):
+        return self.name
+    

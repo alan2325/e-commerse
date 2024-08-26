@@ -27,6 +27,6 @@ path('buys/<int:id>',views.buys),
 path('usr_pro_display',views.usr_pro_display),
 path('delivery_home',views.delivery_home),
 path('delivery_reg',views.delivery_reg),
-path('new_delivery',views.new_delivery),
+path('new_delivery/<int:id>',views.new_delivery),
 
 ]
