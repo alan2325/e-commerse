@@ -264,27 +264,50 @@ def delete(req,id):
 
 
 
-# ###delivery
+#########  delivery  ########
+
+### delivery registration
+def delregister(req):
+    if req.method=='POST':
+        name1=req.POST['name']
+        email2=req.POST['email']
+        phonenumber3=req.POST['phonenumber']
+        location4=req.POST['rout']
+        password5=req.POST['password']
+        try:
+            data=Delreg.objects.create(name=name1,email=email2,phonenumber=phonenumber3,rout=location4,password=password5)
+            data.save()
+            return redirect(login)
+        except:
+            messages.warning(req, "Email Already Exits , Try Another Email.")
+    return render(req,'delregister.html')
+
 def delivery_home(req):
     return render(req,'delivery/delivery_home.html')
 
-# def delivery_reg(req):
-#       if req.method=='POST':
-#         name1=req.POST['name']
-#         email2=req.POST['email']
-#         phonenumber3=req.POST['phonenumber']
-#         delroot=req.POST['root']
-#         password5=req.POST['password']
-#         try:
-#             data=Delreg.objects.create(name=name1,Email=email2,phonenumber=phonenumber3,delroot=delroot,password=password5)
-#             data.save()
-#             return redirect(login)
-#         except:
-#             messages.warning(req, "Email Already Exits , Try Another Email.")
-    
-#         return render(req,'delivery/delivery_reg.html')
       
 def delivery(req):
     # data=buy.objects.filter(user=get_usr(req))
     return render(req,'delivery/new_delivery.html')
 
+def deliverys(req):
+    # data=buy.objects.filter(deliveryss=get_usr(req))
+    # data1=Product.objects.filter(user=get_usr(req))
+    return render(req,'delivery.html')
+
+def assigndel(req,id):
+    if req.method=='POST':
+        data1=buy.objects.get(pk=id)
+        data1.del_boy=True
+        data1.save()
+        data=req.POST['delselect'] 
+        data2=Delreg.objects.get(pk=id)
+        delivry=delpro.objects.create(delivery=data2,buy=data1) 
+        delivry.save()
+
+        return redirect(bookinghistry)
+    
+def bookinghistry(req):
+    data=buy.objects.all()
+    data1=Delreg.objects.all()
+    return render(req,'mobileappliances/bookinghistry.html',{'data':data,'data1':data1})
