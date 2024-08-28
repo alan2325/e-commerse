@@ -280,7 +280,7 @@ def delregister(req):
             return redirect(login)
         except:
             messages.warning(req, "Email Already Exits , Try Another Email.")
-    return render(req,'delregister.html')
+    return render(req,'delivery/delregister.html')
 
 def delivery_home(req):
     return render(req,'delivery/delivery_home.html')
@@ -293,7 +293,7 @@ def delivery(req):
 def deliverys(req):
     # data=buy.objects.filter(deliveryss=get_usr(req))
     # data1=Product.objects.filter(user=get_usr(req))
-    return render(req,'delivery.html')
+    return render(req,'delivery/delivery.html')
 
 def assigndel(req,id):
     if req.method=='POST':
@@ -310,4 +310,4 @@ def assigndel(req,id):
 def bookinghistry(req):
     data=buy.objects.all()
     data1=Delreg.objects.all()
-    return render(req,'mobileappliances/bookinghistry.html',{'data':data,'data1':data1})
+    return render(req,'delivery/bookinghistry.html',{'data':data,'data1':data1})
