@@ -5,20 +5,21 @@ from django.contrib.auth.models import User,auth
 import datetime
 # Create your views here.
 
+### get email of user
 def get_usr(req):
     data=Register.objects.get(Email=req.session['user'])
     return data
 
 
 
-
+#### all login
 def login(req):
     if 'user' in req.session:
         return redirect(user_home)
     if 'shop' in req.session:
         return redirect(adminhome)
-    # if 'delivery' in req.session:
-    #     return redirect(delivery)
+    if 'delivery' in req.session:
+        return redirect(delivery)
     if req.method=='POST':
         email=req.POST['Email']
         password=req.POST['password']
@@ -33,23 +34,26 @@ def login(req):
                 req.session['shop']=email
 
                 return redirect(adminhome)
-        
+            else:
+                data=delivery.objects.get(email=email,password=password)
+                req.session['deliveryss']=data.email
+                return redirect(delivery)
 
-
-            messages.warning(req, "INVALID INPUT !")
+                messages.warning(req, "INVALID INPUT !")
     return render(req,'login.html')
 
-
+### delete all session
 def logout(req):
     if 'user' in req.session:
         del req.session['user']
     if 'shop' in req.session:
         del req.session['shop']
-    # if 'delivery' in req.session:
-    #     del req.session['delivery']
+    if 'delivery' in req.session:
+        del req.session['delivery']
     return redirect(login)
-def register(req):
 
+#### user registration
+def register(req):
     if req.method=='POST':
         name1=req.POST['name']
         email2=req.POST['email']
@@ -64,9 +68,7 @@ def register(req):
             messages.warning(req, "Email Already Exits , Try Another Email.")
     return render(req,'register.html')
 
-
-
-###profile
+### user profile
 def profile(req):
     if 'user' in req.session:
         # data=Register.objects.get(Email=req.session['user'])
@@ -74,7 +76,7 @@ def profile(req):
     else:
         return redirect(login)
     
-###profile update
+### user profile update
 def upload(req):
     if 'user' in req.session:
         data=Register.objects.get(Email=req.session['user'])
@@ -85,10 +87,10 @@ def upload(req):
             Register.objects.filter(Email=req.session['user']).update(name=name,phonenumber=phonenumber,location=location)
             return redirect(profile)
         return render(req,'user/upload.html',{'data':data})
-
     else:
        return redirect(login)
     
+### view all product
 def viewproduct(req):
     if 'user' in req.session:
         data=Product.objects.all()
@@ -120,12 +122,14 @@ def user_view_cart(req):
         return render(req,'user/cart.html',{'data':data})
     else:
         return redirect(login)
+    
+### delete product from cart
 def deletes(req,id):
     data=cart.objects.get(pk=id)
     data.delete()
     return redirect(user_view_cart)
 
-
+### user buy productr
 def buys(req,id):
     if 'user' in req.session:
         cart_product=cart.objects.get(pk=id)
@@ -139,18 +143,14 @@ def buys(req,id):
     else:
         return redirect(login)
 
-
-  
-
-    # return render(req, 'buy.html', {'cart_items': cart_items, 'total_price': total_price})
-
+#### increase quantity in cart
 def qty_incri(req,id):
     data=cart.objects.get(pk=id)
     data.quantity+=1
     data.save()
     return redirect(user_view_cart)
 
-
+#### dectease quantity in cart
 def qty_decri(req,id):
     data=cart.objects.get(pk=id)
     if data.quantity>1:
@@ -158,6 +158,7 @@ def qty_decri(req,id):
         data.save()
     return redirect(user_view_cart)
 
+### user view all orders
 def order_details(req):
     if 'user' in req.session:
         data=buy.objects.filter(user=get_usr(req))
@@ -170,8 +171,7 @@ def user_home(req):
     else:
         return redirect(login)
 
-
-      
+### user product display     
 def usr_pro_display(req,id):
     if 'user' in req.session:
         data=Product.objects.get(pk=id)
@@ -180,15 +180,18 @@ def usr_pro_display(req,id):
         return redirect(login)
    
 
-#### shop
 
 
 
+###### shop/admin ######
+
+### admin home
 def adminhome(req):
     if 'shop' in req.session:
         return render(req,'shop/adminhome.html')
     else:
         return redirect(login)     
+### admin view all users
 def viewuser(req):
     if 'shop' in req.session:
         data=Register.objects.all
@@ -196,6 +199,7 @@ def viewuser(req):
     else:
         return redirect(login) 
 
+### admin add product
 def addpro(req):
     if 'shop' in req.session:
         if req.method=='POST':
@@ -213,6 +217,7 @@ def addpro(req):
     else:
         return redirect(login) 
 
+#### admin view product
 def viewpro(req):
     if 'shop' in req.session:
         data=Product.objects.all()
@@ -220,6 +225,7 @@ def viewpro(req):
     else:
         return redirect(login) 
 
+#### view all booking history of all user
 def bookinghistory(req):
     if 'shop' in req.session:
         data=buy.objects.all()
@@ -279,5 +285,6 @@ def delivery_home(req):
 #         return render(req,'delivery/delivery_reg.html')
       
 def delivery(req):
-    data=buy.objects.filter(user=get_usr(req))
-    return render(req,'delivery/new_delivery.html',{'data':data })
+    # data=buy.objects.filter(user=get_usr(req))
+    return render(req,'delivery/new_delivery.html')
+
