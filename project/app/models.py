@@ -35,6 +35,10 @@ class cart(models.Model):
 
     def __str__(self):
         return self.user.name +' '+self.product.name
+    
+    def total_price(self):
+        return self.quantity * self.product.price
+    
 
  
 class buy(models.Model):

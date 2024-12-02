@@ -108,7 +108,7 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item"><a class="nav-link" href="../user_home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="../viewproduct">View Product</a></li>
-        <li class="nav-item"><a class="nav-link" href="../order_details">Purchases</a></li>
+        <li class="nav-item"><a class="nav-link" href="../order">Purchases</a></li>
         <li class="nav-item"><a class="nav-link active" href="../user_view_cart">My Cart</a></li>
         <li class="nav-item"><a class="nav-link" href="../delivery">Delivery</a></li>
       </ul>
@@ -140,7 +140,7 @@
           <div class="card-body">
             <img src="{{i.product.image.url}}" alt="Product" class="img-fluid" style="width: 150px; height: 150px;">
             <h5>Product: {{i.product.name}}</h5>
-            <p>Price: ${{i.product.price}}</p>
+            <p>Price: ₹{{i.total_price}}</p>
             <div class="quantity-controls">
               <a href="../qty_incri/{{i.pk}}" class="btn btn-outline-primary">+</a>
               <p>{{i.quantity}}</p>
