@@ -174,7 +174,8 @@ def order_details(req):
         return redirect(login)
 def user_home(req):
     if 'user' in req.session:
-        return render(req,'user/user_home.html')
+        data=Product.objects.all()
+        return render(req,'user/user_home.html',{'data':data})
     else:
         return redirect(login)
 

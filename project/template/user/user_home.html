@@ -149,7 +149,7 @@
 <div class="container product-grid">
     <h3 class="text-center mb-4">Latest Products</h3>
     <div class="row">
-        {% for product in products %}
+        {% for product in data %}
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card">
                 <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
@@ -164,6 +164,8 @@
         {% endfor %}
     </div>
 </div>
+
+
 
 <!-- Footer -->
 <footer class="text-center">
