@@ -2,47 +2,47 @@ from django.shortcuts import render,redirect
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
+from .models import Register
 import datetime
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import JsonResponse
+
 # Create your views here.
 
 ### get email of user
 def get_usr(req):
-    data=Register.objects.get(Email=req.session['user'])
-    return data
+    if 'user' in req.session:
+        return Register.objects.get(Email=req.session['user'])
+    return None  # Return None if the 'user' key is not present
+
 
 
 
 #### all login
 def login(req):
-    if 'user' in req.session:
-        return redirect(user_home)
-    if 'shop' in req.session:
-        return redirect(viewpro)
-    if 'delivery' in req.session:
-        return redirect(delivery)
-    if req.method=='POST':
-        email=req.POST['Email']
-        password=req.POST['password']
+    if req.method == 'POST':
+        email = req.POST['Email']
+        password = req.POST['password']
         try:
-            data=Register.objects.get(Email=email,password=password)
-            req.session['user']=data.Email
+            data = Register.objects.get(Email=email, password=password)
+            req.session['user'] = data.Email
             return redirect(user_home)
-        except:
-            shop=auth.authenticate(username=email,password=password)
+        except Register.DoesNotExist:
+            shop = auth.authenticate(username=email, password=password)
             if shop is not None:
-                auth.login(req,shop)
-                req.session['shop']=email
-
+                auth.login(req, shop)
+                req.session['shop'] = email
                 return redirect(viewpro)
             else:
-                data=delivery.objects.get(email=email,password=password)
-                req.session['deliveryss']=data.email
-                return redirect(delivery)
+                try:
+                    data = Delreg.objects.get(email=email, password=password)
+                    req.session['delivery'] = data.email
+                    return redirect(new_delivery)
+                except Delreg.DoesNotExist:
+                    messages.warning(req, "INVALID INPUT!")
+    return render(req, 'login.html')
 
-                messages.warning(req, "INVALID INPUT !")
-    return render(req,'login.html')
 
 ### delete all session
 def logout(req):
@@ -53,6 +53,7 @@ def logout(req):
     if 'delivery' in req.session:
         del req.session['delivery']
     return redirect(login)
+
 
 #### user registration
 def register(req):
@@ -192,13 +193,7 @@ def usr_pro_display(req,id):
 
 
 ###### shop/admin ######
-
-### admin home
-# def adminhome(req):
-#     if 'shop' in req.session:
-#         return render(req,'shop/adminhome.html')
-#     else:
-#         return redirect(login)     
+    
 ### admin view all users
 def viewuser(req):
     if 'shop' in req.session:
@@ -290,18 +285,27 @@ def delregister(req):
             messages.warning(req, "Email Already Exits , Try Another Email.")
     return render(req,'delivery/delregister.html')
 
-def delivery_home(req):
-    return render(req,'delivery/delivery_home.html')
+
 
       
-def delivery(req):
-    # data=buy.objects.filter(user=get_usr(req))
-    return render(req,'delivery/new_delivery.html')
+def new_delivery(req):
+    data=buy.objects.all()
+    return render(req, 'delivery/new_delivery.html', {'data': data})
 
-def deliverys(req):
-    # data=buy.objects.filter(deliveryss=get_usr(req))
-    # data1=Product.objects.filter(user=get_usr(req))
-    return render(req,'delivery/delivery.html')
+
+
+def update_delivery_status(request, order_id):
+    if request.method == "POST":  # Ensure it's a POST request
+        order = buy.objects.get(id=order_id)
+        if order.delivery_status == "Pending":
+            order.delivery_status = "Delivered"
+            order.save()
+            return JsonResponse({"status": "success", "message": "Delivery status updated to Delivered."})
+        else:
+            return JsonResponse({"status": "failure", "message": "Order is already delivered."})
+    return JsonResponse({"status": "failure", "message": "Invalid request."})
+
+
 
 def assigndel(req,id):
     if req.method=='POST':

@@ -10,7 +10,7 @@ class Register(models.Model):
     Email = models.EmailField(unique=True)
     name = models.TextField()
     phonenumber = models.IntegerField()
-    password = models.IntegerField()
+    password = models.TextField()
     location= models.TextField()
 
     def __str__(self):
@@ -94,7 +94,7 @@ class buy(models.Model):
 class Delreg(models.Model):
     rout = models.TextField()
     email =  models.EmailField(unique=True)
-    password = models.IntegerField()
+    password = models.TextField()
     name = models.TextField()
     phonenumber = models.IntegerField()
     def _str_(self):
