@@ -16,9 +16,9 @@
             padding: 0;
         }
 
-        .navbar {
+        /* .navbar {
             margin-bottom: 20px;
-        }
+        } */
 
         .dropdown-menu {
             margin-left: -100px;
@@ -46,6 +46,7 @@
         .card img {
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+            height: 300px;
         }
 
         .card-title {
@@ -98,7 +99,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="../user_home">
-            <img src="{% static '360_F_450084582_MJt3cB5MG2NcwgoaN86eWH5573szBMKH.jpg' %}" alt="Logo" style="width:40px;" class="rounded-pill">
+            <img src="{% static 'logo.png' %}" alt="Logo" style="width:70px;" class="rounded-pill">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar" aria-controls="mynavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -112,7 +113,7 @@
                     <a class="nav-link" href="../viewproduct">View Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../order_details">Purchases</a>
+                    <a class="nav-link" href="../order">Purchases</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../user_view_cart">My Cart</a>

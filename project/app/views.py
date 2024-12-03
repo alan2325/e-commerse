@@ -19,7 +19,7 @@ def login(req):
     if 'user' in req.session:
         return redirect(user_home)
     if 'shop' in req.session:
-        return redirect(adminhome)
+        return redirect(viewpro)
     if 'delivery' in req.session:
         return redirect(delivery)
     if req.method=='POST':
@@ -35,7 +35,7 @@ def login(req):
                 auth.login(req,shop)
                 req.session['shop']=email
 
-                return redirect(adminhome)
+                return redirect(viewpro)
             else:
                 data=delivery.objects.get(email=email,password=password)
                 req.session['deliveryss']=data.email
@@ -194,11 +194,11 @@ def usr_pro_display(req,id):
 ###### shop/admin ######
 
 ### admin home
-def adminhome(req):
-    if 'shop' in req.session:
-        return render(req,'shop/adminhome.html')
-    else:
-        return redirect(login)     
+# def adminhome(req):
+#     if 'shop' in req.session:
+#         return render(req,'shop/adminhome.html')
+#     else:
+#         return redirect(login)     
 ### admin view all users
 def viewuser(req):
     if 'shop' in req.session:

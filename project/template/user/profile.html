@@ -91,7 +91,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="../user_home">
-            <img src="{% static '360_F_450084582_MJt3cB5MG2NcwgoaN86eWH5573szBMKH.jpg' %}" alt="Logo" style="width:40px;" class="rounded-pill">
+            <img src="{% static 'logo.png' %}" alt="Logo" style="width:40px;" class="rounded-pill">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar" aria-controls="mynavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -105,7 +105,7 @@
                     <a class="nav-link" href="../viewproduct">View Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../order_details">Purchases</a>
+                    <a class="nav-link active" href="../order">Purchases</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../user_view_cart">My Cart</a>
@@ -114,9 +114,18 @@
                     <a class="nav-link" href="../delivery">Delivery</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+            <!-- Align the search bar and profile dropdown in the same row -->
+            <ul class="navbar-nav ms-auto d-flex align-items-center">
+                <!-- Search form -->
+                <li class="nav-item">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="text" placeholder="Search">
+                        <button class="btn btn-primary" type="button">Search</button>
+                    </form>
+                </li>
+                <!-- Profile dropdown -->
+                <li class="nav-item dropdown ms-3">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                         <img src="{% static 'user.png' %}" width="40" height="40" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">

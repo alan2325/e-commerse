@@ -1,88 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Update product</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
-         .card{
-      float: left;
-      width: 300px;
-      margin-left: 100PX;
-      /* margin: auto; */
-        padding: 0px;
-      margin-top: 6px;
-    } 
+  <title>Update Product</title>
 
-    .pro{
-  background-color: rgb(81, 10, 222);
-  color: rgb(236, 228, 228);
-  border: 2px solid rgb(81, 10, 222);
-  margin: 20PX;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-}
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    .navbar-nav .nav-link {
+      color: white;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #007bff;
+    }
+
+    .navbar-brand img {
+      width: 70px;
+      border-radius: 50%;
+    }
+
+    .container {
+      max-width: 900px;
+    }
+
+    .card {
+      margin-top: 30px;
+      padding: 30px;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .form-control {
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .btn-submit {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background-color: #45a049;
+    }
+
+    .delete-link {
+      display: inline-block;
+      margin-top: 15px;
+      color: #e74c3c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .delete-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-        <img src="static/360_F_450084582_MJt3cB5MG2NcwgoaN86eWH5573szBMKH.jpg" alt="Logo" style="width:40px;" class="rounded-pill">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../viewpro">
+        <img src="../static/logo.png" alt="Logo" class="rounded-pill">
       </a>
-    <div class="collapse navbar-collapse" id="mynavbar">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="../adminhome">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="../addpro">Add Product</a></li>
+          <li class="nav-item"><a class="nav-link" href="../viewpro">View Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="../viewuser">View Users</a></li>
+          <li class="nav-item"><a class="nav-link" href="../bookinghistory">Booking History</a></li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="text" placeholder="Search">
+          <button class="btn btn-primary" type="button">Search</button>
+        </form>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="../logout">Logout</a>
           </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../viewuser">View user</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../addpro">Add product</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../bookinghistory">Booking histiry</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="text" placeholder="Search">
-        <button class="btn btn-primary" type="button">Search</button>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h3 class="text-center">Update Product</h3>
+
+    <div class="card">
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="name" class="form-label">Product Name</label>
+          <input type="text" class="form-control" id="name" name="name" value="{{data.name}}" placeholder="Enter product name">
+        </div>
+
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="form-control" id="price" name="price" value="{{data.price}}" placeholder="Enter product price">
+        </div>
+
+        <div class="mb-3">
+          <label for="offerprice" class="form-label">Offer Price</label>
+          <input type="number" class="form-control" id="offerprice" name="offerprice" value="{{data.offerprice}}" placeholder="Enter offer price">
+        </div>
+
+        <div class="mb-3">
+          <label for="quantity" class="form-label">Quantity</label>
+          <input type="number" class="form-control" id="quantity" name="quantity" value="{{data.quantity}}" placeholder="Enter quantity">
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <input type="submit" value="Submit" class="btn-submit">
+        </div>
       </form>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="../logout">Logout</a>
-        </li>
-      </ul>
+
+      <a href="../delete/{{data.pk}}" class="delete-link">Delete Product</a>
     </div>
   </div>
-</nav>
-
-<div class="container-fluid mt-3">
-  <h3>Navbar Forms</h3>
-  <p>You can also include forms inside the navigation bar.</p>
-</div>
-
-<form action="" method="post">
-    {% csrf_token %}
-    <label for="">Name</label>
-<input type="text"  name="name" value="{{data.name}}" placeholder="Enter your name"><br><br>
-    <label for="">price</label>
-<input type="number" name="price" value="{{data.price}}" placeholder="Enter your price"><br><br>
-    <label for="">offerprice</label>
-<input type="number" name="offerprice" value="{{data.offerprice}}" placeholder="Enter your offerprice"><br><br>
-<label for="">quantity</label>
-<input type="number" name="quantity" value="{{data.quantity}}" placeholder="Enter your quantity"><br><br>
-    <label for=""></label>
-<input type="submit" value="submit" ><br>
-
-</form>
-<a href="../delete/{{data.pk}}">delete</a>
 
 </body>
 </html>
