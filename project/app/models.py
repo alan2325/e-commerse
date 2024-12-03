@@ -45,14 +45,25 @@ class buy(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     user = models.ForeignKey(Register,on_delete=models.CASCADE)
     date_of_buying = models.TextField()
-    payment_status = models.BooleanField(default=False)
+    # payment_status = models.BooleanField(default=False)
     # order_status = models.IntegerField()
     quantity = models.IntegerField()
     price = models.IntegerField()
-    del_boy=models.BooleanField(default=False)
+    # del_boy=models.BooleanField(default=False)
+    DELIVERY_STATUS_CHOICES = [
+        ("Pending", "Pending"),
+        ("Shipped", "Shipped"),
+        ("In Transit", "In Transit"),
+        ("Delivered", "Delivered"),
+    ]
+    delivery_status = models.CharField(
+        max_length=20, choices=DELIVERY_STATUS_CHOICES, default="Pending"
+    )
+
+    # Optional: define a string representation for clarity in admin
+    def __str__(self):
+        return f"{self.product.name} - {self.delivery_status}"
     
-    def _str_(self):
-        return self.product.name 
        
 # class buy(models.Model):
 #     user = models.ForeignKey(Register,on_delete=models.CASCADE)
